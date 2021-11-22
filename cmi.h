@@ -1,5 +1,5 @@
 #pragma once
-//includes
+// includes
 #include <fstream>
 #include <string>
 #include <iostream>
@@ -8,13 +8,12 @@
 #include <stdlib.h>
 #include <regex>
 
-//defines
+// defines
 #define USE_CLASS_NAME "ucn"
 #define NO_VERB 0
 
 #define NO_INCLUDE 2
 #define IMPLE_STRUCT 3
-
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~*/
 
@@ -27,10 +26,8 @@ const std::string HELPERMSG =
     "usage: cmi -header <filename> -imple <filename> <additional options>\n"
     "additional options:"
     "\n-noguard -> disables include guard"
-    "\n-noinclude -> doesn't include header file"
     "\n#### END ####\n";
 /*~~~~~~~~~~~~~~~~~~~~~~~~*/
-
 
 /*Unsuccesfull Run define*/
 #define FAILED_EXIT()        \
@@ -49,10 +46,10 @@ namespace utils
         file.open(filepath);
 
         if (!file.is_open())
-            {
-             throw std::runtime_error("no file found / error opening file!!\n");
-             FAILED_EXIT();
-            }
+        {
+            throw std::runtime_error("no file found / error opening file!!\n");
+            FAILED_EXIT();
+        }
 
         std::stringstream ss;
 
@@ -136,7 +133,7 @@ public:
         }
 
         const std::string doth = ".h";
-        
+
         if (!addop[NO_INCLUDE])
         {
             write << include << quote << HeaderFile << doth << quote << "\n\n";
@@ -153,7 +150,7 @@ public:
 private:
     void ParseLines()
     {
-        //check if class is present in file
+        // check if class is present in file
         bool ClassPresent = false;
         std::string CurrentClass;
 
