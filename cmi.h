@@ -11,9 +11,33 @@
 //defines
 #define USE_CLASS_NAME "ucn"
 #define NO_VERB 0
-#define NO_INCLUDE_GUARD 1
+
 #define NO_INCLUDE 2
 #define IMPLE_STRUCT 3
+
+
+/* ~~~~~~~~~~~~~~~~~~~~~~~*/
+
+/*Messeges*/
+const std::string INVALIDMSG = "invalid argument , refer -help for more info!\n";
+
+const std::string HELPERMSG =
+    "#### HELP ####\n"
+    "-header : takes header file name\n-imple : takes implementation file name\n "
+    "usage: cmi -header <filename> -imple <filename> <additional options>\n"
+    "additional options:"
+    "\n-noguard -> disables include guard"
+    "\n-noinclude -> doesn't include header file"
+    "\n#### END ####\n";
+/*~~~~~~~~~~~~~~~~~~~~~~~~*/
+
+
+/*Unsuccesfull Run define*/
+#define FAILED_EXIT()        \
+    std::cout << INVALIDMSG; \
+    exit(1)
+#define SUCCESS_EXIT() \
+    exit(0)
 using line = std::string;
 const std::string FUNCTION_SIGNATURE_REG = "\\s*(\\w*)\\s*(\\w*)\\((.*)\\)\\s*(const)?;";
 
@@ -25,7 +49,10 @@ namespace utils
         file.open(filepath);
 
         if (!file.is_open())
-            return "";
+            {
+             throw std::runtime_error("no file found / error opening file!!\n");
+             FAILED_EXIT();
+            }
 
         std::stringstream ss;
 
@@ -109,10 +136,7 @@ public:
         }
 
         const std::string doth = ".h";
-        if (!addop[NO_INCLUDE_GUARD])
-        {
-            write << "#pragma once\n";
-        }
+        
         if (!addop[NO_INCLUDE])
         {
             write << include << quote << HeaderFile << doth << quote << "\n\n";

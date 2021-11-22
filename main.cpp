@@ -10,32 +10,12 @@ enum class OPTIONS
     MODE_HELP,
     MODE_INVALID_ARG,
     MODE_NO_VERBOSE,
-    MODE_NO_INCLUDE_GUARD,
     MODE_NO_INCLUDE,
     MODE_IMPLE_STRUCT
 };
 
-/* ~~~~~~~~~~~~~~~~~~~~~~~*/
 
-/*Messeges*/
-const std::string INVALIDMSG = "invalid argument , refer -help for more info!\n";
 
-const std::string HELPERMSG =
-    "#### HELP ####\n"
-    "-header : takes header file name\n-imple : takes implementation file name\n "
-    "usage: cmi -header <filename> -imple <filename> <additional options>\n"
-    "additional options:"
-    "\n-noguard -> disables include guard"
-    "\n-noinclude -> doesn't include header file"
-    "\n#### END ####\n";
-/*~~~~~~~~~~~~~~~~~~~~~~~~*/
-
-/*Unsuccesfull Run define*/
-#define FAILED_EXIT()        \
-    std::cout << INVALIDMSG; \
-    exit(1)
-#define SUCCESS_EXIT() \
-    exit(0)
 
 class application
 {
@@ -95,9 +75,6 @@ private:
                     break;
                 case OPTIONS::MODE_IMPLEMENTATON_FILE_NAME:
                     ImpleP = Val;
-                    break;
-                case OPTIONS::MODE_NO_INCLUDE_GUARD:
-                    m_AdditionalOptions[NO_INCLUDE_GUARD] = 1;
                     break;
                 case OPTIONS::MODE_NO_VERBOSE:
                     m_AdditionalOptions[NO_VERB] = 1;
@@ -181,10 +158,7 @@ private:
         {
             return OPTIONS::MODE_NO_VERBOSE;
         }
-        if (mode == "noguard")
-        {
-            return OPTIONS::MODE_NO_INCLUDE_GUARD;
-        }
+        
         if (mode == "noinclude")
         {
             return OPTIONS::MODE_NO_INCLUDE;
